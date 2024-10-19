@@ -253,10 +253,18 @@ require('lazy').setup({
   --
   -- Install codeium
   {
-  'Exafunction/codeium.vim',
-  event = 'BufEnter'
+    'Exafunction/codeium.vim',
+    event = 'BufEnter',
   },
+  -- instll wakatime
   { 'wakatime/vim-wakatime', lazy = false },
+
+  {
+    -- amongst your other plugins
+    { 'akinsho/toggleterm.nvim', version = '*', config = true },
+    -- or
+  },
+
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
   --    require('gitsigns').setup({ ... })
@@ -661,6 +669,7 @@ require('lazy').setup({
       --  You can press `g?` for help in this menu.
       require('mason').setup()
 
+      require('toggleterm').setup {}
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
