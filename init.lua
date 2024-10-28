@@ -239,6 +239,12 @@ require('lazy').setup({
     },
     config = function()
       require('go').setup()
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        pattern = '*.go',
+        callback = function()
+          require('go.format').goimport()
+        end,
+      })
     end,
     event = { 'CmdlineEnter' },
     ft = { 'go', 'gomod' },
