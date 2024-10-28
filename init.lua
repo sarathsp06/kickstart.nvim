@@ -668,8 +668,23 @@ require('lazy').setup({
       --
       --  You can press `g?` for help in this menu.
       require('mason').setup()
+      -- Configure ToggleTerm
+      require('toggleterm').setup {
+        -- optional settings
+        open_mapping = [[<c-\>]], -- Define any other keys to toggle term
+        direction = 'float', -- or use horizontal, vertical, or tab
+        size = 20, -- Size of the terminal window
+      }
 
-      require('toggleterm').setup {}
+      -- Set up custom keymap in Lua for <C-`>
+      vim.api.nvim_set_keymap('n', '<C-`>', ':ToggleTerm<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('t', '<C-`>', '<C-\\><C-n>:ToggleTerm<CR>', { noremap = true, silent = true })
+
+      -- Keybinding Explanation
+      -- 'n' for normal mode and 't' for terminal mode
+      -- noremap = true to prevent recursive mapping
+      -- silent = true for no output when executed
+
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -935,7 +950,6 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
-
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
@@ -949,8 +963,8 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
